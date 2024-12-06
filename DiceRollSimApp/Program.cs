@@ -1,22 +1,43 @@
-﻿class DiceRollSimulation
+﻿
+class DiceRollSimulation
 {
     static void Main()
     {
-        Random random = new Random();  // Create a Random object to generate random numbers
+        // Control variable to manage game repetition
+        bool playAgain = true;
 
-        Console.WriteLine("Welcome to DiceRollApp!");
+        while (playAgain)
+        {
+            // Run the main dice roll simulation
+            RunDiceRollSimulation();
+
+            // Ask user if they want to play again
+            Console.WriteLine("\nPress 'R' to roll again, or any other key to exit.");
+            var key = Console.ReadKey(true); // Capture key press without displaying it
+            playAgain = (key.Key == ConsoleKey.R);
+        }
+
+        // Farewell message when user chooses to exit
+        Console.WriteLine("Thank you for playing. Goodbye!");
+    }
+
+    static void RunDiceRollSimulation()
+    {
+        // Create random number generator
+        Random random = new Random();
+
+        Console.WriteLine("Welcome to Dice Roll Application!");
         
-        // Ask the user how many times they want to roll the dice
+        // Prompt user for number of dice rolls
         Console.Write("Enter the number of rolls: ");
         int numberOfRolls = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         
-        // Perform the specified number of rolls
+        // Simulate dice rolls
         for (int i = 0; i < numberOfRolls; i++)
         {
-            int result = random.Next(1, 7);  // Generate a random number between 1 and 6.
+            // Generate random number between 1 and 6 (inclusive)
+            int result = random.Next(1, 7);
             Console.WriteLine($"Roll {i + 1}: {result}");
         }
-        
-        Console.WriteLine("End of the program. Goodbye!");
     }
 }
