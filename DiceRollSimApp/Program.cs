@@ -3,41 +3,92 @@ class DiceRollSimulation
 {
     static void Main()
     {
-        // Control variable to manage game repetition
-        bool playAgain = true;
+        bool exitApplication = false;
 
-        while (playAgain)
+        while (!exitApplication)
         {
-            // Run the main dice roll simulation
-            RunDiceRollSimulation();
+            DisplayMainMenu();
+            string choice = Console.ReadLine() ?? "";
 
-            // Ask user if they want to play again
-            Console.WriteLine("\nPress 'R' to roll again, or any other key to exit.");
-            var key = Console.ReadKey(true); // Capture key press without displaying it
-            playAgain = (key.Key == ConsoleKey.R);
+            switch (choice)
+            {
+                case "1":
+                    RunDiceRollSimulation();
+                    break;
+                case "2":
+                    RunStatisticsTracker();
+                    break;
+                case "3":
+                    RunCustomDiceConfiguration();
+                    break;
+                case "4":
+                    RunGameModeSelector();
+                    break;
+                case "0":
+                    exitApplication = true;
+                    Console.WriteLine("Exiting application. Goodbye!");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+
+            if (!exitApplication)
+            {
+                Console.WriteLine("\nPress any key to return to main menu...");
+                Console.ReadKey(true);
+                Console.Clear();
+            }
         }
+    }
 
-        // Farewell message when user chooses to exit
-        Console.WriteLine("Thank you for playing. Goodbye!");
+    static void DisplayMainMenu()
+    {
+        Console.Clear();
+        Console.WriteLine("=== Dice Roll Simulator App ===");
+        Console.WriteLine("1. Basic Dice Roll");
+        Console.WriteLine("2. Roll Statistics");
+        Console.WriteLine("3. Custom Dice Configuration");
+        Console.WriteLine("4. Game Mode Selector");
+        Console.WriteLine("0. Exit");
+        Console.Write("Select an option: ");
     }
 
     static void RunDiceRollSimulation()
     {
-        // Create random number generator
+        Console.Clear();
         Random random = new Random();
 
-        Console.WriteLine("Welcome to Dice Roll Application!");
-        
-        // Prompt user for number of dice rolls
+        Console.WriteLine("Welcome to Basic Dice Roll!");
         Console.Write("Enter the number of rolls: ");
         int numberOfRolls = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-        
-        // Simulate dice rolls
+
         for (int i = 0; i < numberOfRolls; i++)
         {
-            // Generate random number between 1 and 6 (inclusive)
             int result = random.Next(1, 7);
             Console.WriteLine($"Roll {i + 1}: {result}");
         }
+    }
+
+    // Placeholder methods for future implementation
+    static void RunStatisticsTracker()
+    {
+        Console.Clear();
+        Console.WriteLine("Function 1");
+        Console.WriteLine("(Future implementation 1)");
+    }
+
+    static void RunCustomDiceConfiguration()
+    {
+        Console.Clear();
+        Console.WriteLine("Function 2");
+        Console.WriteLine("(Future implementation 2)");
+    }
+
+    static void RunGameModeSelector()
+    {
+        Console.Clear();
+        Console.WriteLine("Function 3");
+        Console.WriteLine("(Future implementation 3)");
     }
 }
