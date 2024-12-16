@@ -1,5 +1,4 @@
-﻿
-class DiceRollSimulation
+﻿class DiceRollSimulation
 {
     static void Main()
     {
@@ -70,25 +69,71 @@ class DiceRollSimulation
         }
     }
 
-    // Placeholder methods for future implementation
     static void RunStatisticsTracker()
     {
         Console.Clear();
-        Console.WriteLine("Function 1");
-        Console.WriteLine("(Future implementation 1)");
+        Console.WriteLine("=== Dice Roll Statistics Tracker ===");
+
+        // Collect basic input parameters
+        Console.Write("Enter number of rolls to simulate: ");
+        int numberOfRolls = int.Parse(Console.ReadLine() ?? "100");
+
+        Console.Write("Enter number of dice sides (default 6): ");
+        int diceSides = int.TryParse(Console.ReadLine(), out int sides) ? sides : 6;
+
+        // Initialize statistics tracking
+        int[] rollCounts = new int[diceSides];
+        Random random = new Random();
+        double totalSum = 0;
+
+        // Perform dice rolls
+        for (int i = 0; i < numberOfRolls; i++)
+        {
+            int rollResult = random.Next(1, diceSides + 1);
+            rollCounts[rollResult - 1]++;
+            totalSum += rollResult;
+        }
+
+        // Display statistical analysis
+        Console.WriteLine("\n=== Roll Distribution ===");
+        for (int i = 0; i < diceSides; i++)
+        {
+            double percentage = (rollCounts[i] / (double)numberOfRolls) * 100;
+            Console.WriteLine($"Number {i + 1}: {rollCounts[i]} times ({percentage:F2}%)");
+        }
+
+        // Calculate and display additional statistics
+        double averageRoll = totalSum / numberOfRolls;
+        int mostFrequentRoll = Array.IndexOf(rollCounts, rollCounts.Max()) + 1;
+        int leastFrequentRoll = Array.IndexOf(rollCounts, rollCounts.Min()) + 1;
+
+        Console.WriteLine("\n=== Summary Statistics ===");
+        Console.WriteLine($"Total Rolls: {numberOfRolls}");
+        Console.WriteLine($"Average Roll: {averageRoll:F2}");
+        Console.WriteLine($"Most Frequent Number: {mostFrequentRoll}");
+        Console.WriteLine($"Least Frequent Number: {leastFrequentRoll}");
+
+        // Visualization of distribution
+        Console.WriteLine("\n=== Distribution Visualization ===");
+        int maxCount = rollCounts.Max();
+        for (int i = 0; i < diceSides; i++)
+        {
+            int barLength = (rollCounts[i] * 50) / maxCount;
+            Console.WriteLine($"Number {i + 1}: {new string('#', barLength)} ({rollCounts[i]} rolls)");
+        }
     }
 
     static void RunCustomDiceConfiguration()
     {
         Console.Clear();
-        Console.WriteLine("Function 2");
-        Console.WriteLine("(Future implementation 2)");
+        Console.WriteLine("Custom Dice Configuration");
+        Console.WriteLine("(Future implementation - will allow custom dice sides, special dice)");
     }
 
     static void RunGameModeSelector()
     {
         Console.Clear();
-        Console.WriteLine("Function 3");
-        Console.WriteLine("(Future implementation 3)");
+        Console.WriteLine("Game Mode Selector");
+        Console.WriteLine("(Future implementation - will add game modes like Yahtzee, Craps)");
     }
 }
